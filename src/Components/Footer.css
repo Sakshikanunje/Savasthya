@@ -1,0 +1,17 @@
+.social-icona {
+    display: inline-block;
+    width: 40px;
+    
+    line-height: 40px;
+    border-radius: 50%;
+    background-color: #f0f0f0;
+    color: #333;
+    text-align: center;
+    margin: 0 5px;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .social-icona:hover {
+    background-color: black;
+    color: #fff;
+  }

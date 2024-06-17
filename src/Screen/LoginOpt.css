@@ -1,0 +1,233 @@
+/* body {
+  margin-top: 20px !important;
+  font-family: Arial, sans-serif;
+  background-color: white;
+  color: #08a29e;
+  margin: 0;
+  padding: 0;
+}
+
+.card-container {
+  margin-top: 20px;
+  padding: 20px;
+  padding-bottom: 50px !important;
+}
+
+.crd {
+  padding-top: 80px !important;
+}
+.card-title {
+  color: #08a29e !important;
+}
+
+.card {
+  border: 1px solid #08a29e !important;
+  transition: transform 0.3s, box-shadow 0.3s;
+
+  border-radius: 10px;
+  filter: drop-shadow(0 5px 10px 0 #ffffff);
+  width: 400px;
+  height: 180px;
+  background-color: #ffffff;
+  padding: 20px;
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
+  transition: 0.6s ease-in;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: -15px;
+  right: -15px;
+  background: #08a29e;
+  height: 220px;
+  width: 25px;
+  border-radius: 32px;
+  transform: scale(1);
+  transform-origin: 50% 50%;
+  transition: transform 0.25s ease-out;
+}
+
+.card:hover::before {
+  transition-delay: 0.2s;
+
+  transform: scale(40);
+}
+
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  color: #ffffff;
+}
+
+.card-body {
+  text-align: center;
+}
+
+button,
+.btn-primary {
+  background-color: #08a29e !important;
+  color: white !important;
+  border: none !important;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+button:hover,
+.btn-primary:hover {
+  background-color: white !important;
+  color: #08a29e !important;
+  border: 1px solid #08a29e !important;
+}
+
+button:active,
+.btn-primary:active {
+  transform: scale(0.95);
+}
+
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+  border: 1px solid #08a29e;
+  padding: 10px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.img-fluid:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+} */
+body {
+    margin-top: 20px !important;
+    font-family: Arial, sans-serif;
+    background-color: white;
+    color: #08a29e;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .card-container {
+    margin-top: 20px;
+    padding: 20px;
+    padding-bottom: 50px !important;
+  }
+  
+  .crd {
+    padding-top: 80px !important;
+    margin-left: 20px; /* Add left margin to the cards */
+  }
+  
+  .card-title {
+    color: #08a29e !important;
+    font-size: 50PX !important;
+  }
+  
+  .card {
+    border: 1px solid #08a29e !important;
+    transition: transform 0.3s, box-shadow 0.3s;
+    border-radius: 10px;
+    filter: drop-shadow(0 5px 10px 0 #ffffff);
+    width: calc(400px + 50px); /* Increase card width by 50px */
+    height: 280px;
+    background-color: #ffffff;
+    padding: 10px;
+    position: relative;
+    z-index: 0;
+    overflow: hidden;
+    transition: 1.06s ease-in;
+  }
+  
+  .card::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: -15px;
+    right: -15px;
+    background: #08a29e;
+    height: 220px;
+    width: 25px;
+    border-radius: 32px;
+    transform: scale(1);
+    transform-origin: 50% 50%;
+    transition: transform 0.25s ease-out;
+  }
+  
+  .card:hover::before {
+    transition-delay: 0.2s;
+    transform: scale(40);
+  }
+  
+  .card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    color: #ffffff;
+  }
+  
+  .card-body {
+    text-align: center;
+  }
+  
+  .card:hover .card-title,
+  .card:hover .card-text,
+  .card:hover .btn-primary {
+    color: #ffffff !important;
+  }
+  
+  .card:hover .btn-primary {
+    background-color: #ffffff !important;
+    color: #08a29e !important;
+    border: 1px solid #08a29e !important;
+  }
+  
+  button,
+  .btn-primary {
+    background-color: #08a29e !important;
+    color: white !important;
+    border: none !important;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+  }
+  
+  button:hover,
+  .btn-primary:hover {
+    background-color: white !important;
+    color: #08a29e !important;
+    border: 1px solid #08a29e !important;
+  }
+  
+  button:active,
+  .btn-primary:active {
+    transform: scale(0.95);
+  }
+  
+  .img-fluid {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #08a29e;
+    padding: 10px;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  
+  .img-fluid:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .card {
+      width: calc(100% - 40px); /* Ensure cards take up full width on smaller screens */
+      margin-left: 0; /* Remove left margin on smaller screens */
+    }
+  
+    .crd {
+      margin-left: 0; /* Remove left margin on smaller screens */
+    }
+  }
