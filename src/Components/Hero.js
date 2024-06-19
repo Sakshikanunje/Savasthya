@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
-import Doctor from "../Database/doctor-picture.png";
+import Doctor from "../Database/Doctor.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendarCheck, faAngleUp } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate  } from "react-router-dom";
 import "./Hero.css";
 import picture from "../Database/main.png";
+import { Link } from "react-router-dom";
+import doc from "../Database/doctor-picture.png";
+
 
 function Hero() {
   const navigate = useNavigate();
@@ -35,25 +38,19 @@ function Hero() {
 
   return (
     <div className="section-container">
-      {/* <div className="hero-section">
+      <div className="hero-section">
         <div className="text-section">
           <p className="text-headline">❤️ Health comes first</p>
-          <h2 className="text-title">
-            Find your Doctor and make an Appointments
+          <br></br>
+          <h2 className="text-title " style={{"color":"green"}}>
+          आरोग्यं परमं भाग्यं स्वास्थ्यं सर्वार्थसाधनम्॥
           </h2>
           <p className="text-descritpion">
-            Talk to online doctors and get medical advice, online prescriptions,
-            refills and medical notes within minutes. On-demand healthcare
-            services at your fingertips.
+            Get medical advice, recommending precautions, medications, diets, 
+            and workouts by using AIML.
           </p>
-          <button className="text-appointment-btn" type="button">Check......</button> */}
-          {/* <button
-            className="text-appointment-btn"
-            type="button"
-            onClick={handleBookAppointmentClick}
-          >
-            <FontAwesomeIcon icon={faCalendarCheck} /> Book Appointment
-          </button> */}
+         <Link to="/model" ><button className="text-appointment-btn" type="button" >HealthComrade AI</button></Link>
+          
           {/* <div className="text-stats">
             <div className="text-stats-container">
               <p>145k+</p>
@@ -69,15 +66,15 @@ function Hero() {
               <p>10+</p>
               <p>Years of Experience</p>
             </div>
-          </div>
+          </div> */}
         </div>
 
         <div className="hero-image-section">
-          <img className="hero-image1" src={Doctor} alt="Doctor" />
+          <img className="hero-image1" src={doc} alt="Doctor" />
         </div>
-      </div> */}
-<div>
-  <img src={picture}/> </div>
+      </div>
+{/* <div>
+  <img src={picture}/> </div> */}
       <div
         onClick={scrollToTop}
         className={`scroll-up ${goUp ? "show-scroll" : ""}`}

@@ -1,16 +1,18 @@
 .hero-section {
     padding: 32px;
     display: flex;
+    margin-top: 5%;
     justify-content: center;
     align-items: center;
     gap: 24px;
-    background: linear-gradient(to right, #f5f7fd, #92dddb);
+    background: linear-gradient(to right, #f5f7fd, #c5d1f6);
 }
 /* Text section */
 .text-section {
     width: 60%;
     padding: 0 32px;
 }
+
 .text-headline {
     margin-bottom: 12px;
     color: rgb(77, 75, 75);
@@ -22,9 +24,10 @@
 .text-title {
     width: 500px;
     color: black;
-    font-family: 'Poppins', sans-serif;
-    font-size: 40px;
-    font-weight: bold;
+  
+    font-family: "Kalam", cursive;
+    font-weight: 390;
+    font-style: normal;
 }
 .text-descritpion {
     width: 475px;

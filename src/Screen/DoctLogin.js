@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Axios from "axios";
 import "./DoctLogin.css";
+import { Link } from "react-router-dom";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -76,7 +77,7 @@ export default function Login() {
               required
             />
             <input
-              className="button"
+              className="buttonc"
               type="submit"
               onClick={doctLogin}
               value="Login"
@@ -91,7 +92,7 @@ export default function Login() {
             >
               {loginStatus}
             </h1>
-            <button className="toggle-button" onClick={toggleForm}>
+            <button className="toggle-buttonc" onClick={toggleForm}>
               Signup
             </button>
           </form>
@@ -133,7 +134,7 @@ export default function Login() {
               required
             />
             <input
-              className="button"
+              className="buttonc"
               type="submit"
               onClick={DoctRegister}
               value="Create an account"
@@ -147,7 +148,7 @@ export default function Login() {
             >
               {registerStatus}
             </h1>
-            <button className="toggle-button" onClick={toggleForm}>
+            <button className="toggle-buttonc" onClick={toggleForm}>
               Login
             </button>
           </form>
@@ -157,7 +158,7 @@ export default function Login() {
       {showSuccessPopup && (
         <div className="success-popup">
           <p>Login Successful!</p>
-          <button onClick={() => setShowSuccessPopup(false)}>Close</button>
+          <Link to="/doctorPro"><button onClick={() => setShowSuccessPopup(false)}>Close</button></Link>
         </div>
       )}
     </div>

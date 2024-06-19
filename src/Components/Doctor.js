@@ -5,6 +5,7 @@ import React from "react";
 // import profile3 from "../Assets/profile-3.png";
 // import profile4 from "../Assets/profile-4.png";
 import ai  from "../Database/background.png";
+import card from "../Database/sample.png"
 import "./Doctor.css";
 
 function Doctors() {
@@ -18,6 +19,10 @@ function Doctors() {
         <p className="dt-description">
         The Sanjivan Card features a unique QR code assigned to each user, facilitating personalized identification and access. Embedded within the QR code are essential user details and medical history, ensuring efficient retrieval and utilization of healthcare information.
         </p>
+<br></br><br></br>
+        <div>
+          <img src={card} style={{"height":"400px" , "width":"600px" , "border":"3px solid black"}}/>
+        </div>
       </div>
       <div className="dt-cards-content">
     

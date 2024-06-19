@@ -55,11 +55,14 @@
     width: 100%; /* Set width to 100% to display a single card per row */
     margin-bottom: 20px; /* Add some margin between cards */
   }
-  
-  
+ 
+  .carda-body{
+    padding: 10px;
+  }
   .img-fluida {
     height: 100%;
     object-fit: cover;
+    
   }
 
   .carda:hover {

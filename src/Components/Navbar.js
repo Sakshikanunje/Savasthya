@@ -9,6 +9,7 @@ import {
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import './Navbar.css';
+import logo from "../Database/logo.png"
 
 function Navbar() {
   const [nav, setNav] = useState(false);
@@ -32,8 +33,7 @@ function Navbar() {
     <div className="navbar-section nava">
       <h1 className="navbar-title">
         <Link to="/">
-        <span>S</span>anjivan
-     <span className="navbar-sign"></span>
+      <img src={logo} style={{"height":"200px" , "width":"200px" , "marginTop":"5px"}}/>
         </Link>
       </h1>
 
@@ -45,7 +45,7 @@ function Navbar() {
           </Link>
         </li>
         <li>
-          <Link to="/" className="navbar-links">
+          <Link to="/profile" className="navbar-links">
             Profile
           </Link>
         </li>
@@ -75,7 +75,7 @@ function Navbar() {
             </Link>
           </li>
           <li>
-            <Link to="/" onClick={openNav} href="#services">
+            <Link to="/profile" onClick={openNav} href="#services">
              Profile
             </Link>
           </li>

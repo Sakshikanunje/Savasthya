@@ -3,12 +3,12 @@ import axios from 'axios';
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
 import './Model.css';
-import diseaseImg from '../Database/medication.jpeg';
-import descriptionImg from '../Database/diet.jpeg';
-import preventiveImg from '../Database/diet.jpeg';
+import diseaseImg from '../Database/disease.jpeg';
+import descriptionImg from '../Database/description.jpeg';
+import preventiveImg from '../Database/preventive.jpeg';
 import medicationImg from '../Database/medication.jpeg';
 import dietImg from '../Database/diet.jpeg';
-import workoutImg from '../Database/medication.jpeg';
+import workoutImg from '../Database/workout.jpeg';
 
 export default function Model() {
   const [symptoms, setSymptoms] = useState('');
@@ -73,15 +73,15 @@ export default function Model() {
           <div className="result-cards result-cardsa ">
            
             {cardData.map((item, index) => (
-              <div className="card mb-3 carda" style={{ maxWidth: '540px' }} key={index}>
+              <div className="carda mb-3 carda" style={{ maxWidth: '540px' }} key={index}>
                 <div className="row g-0">
                   <div className="col-md-4">
                     <img src={item.img} className="img-fluid img-fluida rounded-start" alt={`${item.title}`} />
                   </div>
                   <div className="col-md-8">
-                    <div className="card-body">
-                      <h5 className="card-title">{item.title}</h5>
-                      <p className="card-text">Click the button below to view details.</p>
+                    <div className="carda-body">
+                      <h5 className="carda-title">{item.title}</h5>
+                      <p className="carda-text">Click the button below to view details.</p>
                       <button 
                         type="button" 
                         className="btn btn-info toggle-button" 
@@ -100,7 +100,7 @@ export default function Model() {
         <div className="modal fade" id="resultModal" tabIndex="-1" aria-labelledby="resultModalLabel" aria-hidden="true">
           <div className="modal-dialog">
             <div className="modal-content">
-              <div className="modal-header" style={{backgroundColor:"skyblue"}}>
+              <div className="modal-header" style={{backgroundColor:"#08a29e"}}>
                 <h5 className="modal-title" id="resultModalLabel">{modalContent.title}</h5>
                 <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
@@ -116,7 +116,7 @@ export default function Model() {
                 )}
               </div>
               <div className="modal-footer">
-                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal"  style={{backgroundColor:"skyblue" , color:"black"}}>Close</button>
+                <button type="button" className="btn "data-bs-dismiss="modal"  style={{backgroundColor:"#08a29e" , color:"black"}}>Close</button>
               </div>
             </div>
           </div>

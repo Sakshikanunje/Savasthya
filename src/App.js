@@ -8,6 +8,7 @@ import LoginOpt from './Screen/LoginOpt';
 import DoctLogin from './Screen/DoctLogin';
 import UserProfile from './Screen/UserProfile';
 import Doctorpro from './Screen/Doctorpro';
+import Profile from './Screen/Profile';
 import {BrowserRouter as Router , Routes , Route} from "react-router-dom";
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
         <Route exact path="/model" element={<Model/>}/>
         <Route exact path="/userLogin" element={<UserLogin/>}/>
         <Route exact path='/loginOpt' element={<LoginOpt />}/>
+        <Route exact path='/profile' element={<Profile />}/>
         <Route exact path='/doctLogin' element={<DoctLogin/>} />
         <Route exact path='/userProfile' element={<UserProfile/>}/>
         <Route exact path='/doctorPro' element={<Doctorpro/>}/>
