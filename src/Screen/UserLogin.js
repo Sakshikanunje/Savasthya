@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Axios from "axios";
 import "./UserLogin.css";
+import { Link } from "react-router-dom";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -9,6 +10,8 @@ export default function Login() {
   const [loginStatus, setLoginStatus] = useState("");
   const [registerStatus, setRegisterStatus] = useState("");
   const [showLoginForm, setShowLoginForm] = useState(true);
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false); // State for showing success popup
+
 
   const UserRegister = (e) => {
     e.preventDefault();
@@ -35,6 +38,7 @@ export default function Login() {
         setLoginStatus(response.data.message);
       } else {
         setLoginStatus(response.data[0].email);
+        setShowSuccessPopup(true);
         Axios.post("http://localhost:3001/generateQR", {
           username: username,
           email: response.data[0].email,
@@ -157,6 +161,13 @@ export default function Login() {
           </form>
         </div>
       </div>
+      {/* Success popup */}
+      {showSuccessPopup && (
+        <div className="success-popup">
+          <p>Login Successful!</p>
+          <Link to="/profile/:uuid"><button onClick={() => setShowSuccessPopup(false)}>Close</button></Link>
+        </div>
+      )}
     </div>
   );
 }

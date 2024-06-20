@@ -45,7 +45,7 @@ function Navbar() {
           </Link>
         </li>
         <li>
-          <Link to="/profile" className="navbar-links">
+          <Link to="/profile/:uuid" className="navbar-links">
             Profile
           </Link>
         </li>
@@ -75,7 +75,7 @@ function Navbar() {
             </Link>
           </li>
           <li>
-            <Link to="/profile" onClick={openNav} href="#services">
+            <Link to="/profile/:uuid" onClick={openNav} href="#services">
              Profile
             </Link>
           </li>

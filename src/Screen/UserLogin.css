@@ -123,3 +123,31 @@
       transform: translateY(-5px);
     }
   }
+
+  /* Success Popup */
+  .success-popup {
+    position: fixed;
+    top: 50px; /* Adjust top position as needed */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000; /* Ensure the popup is above other content */
+  }
+  
+  .success-popup .buttonc {
+    background-color: #08a29e;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-left: 10px;
+    border-radius: 3px;
+  }
+  
+  .success-popup button:hover {
+    background-color: #08a29e;
+  }

@@ -1,9 +1,4 @@
-
-
-
 import React, { useState } from 'react';
-import { Container, Row, Col, Card, Button, Form } from 'react-bootstrap';
-import Table from 'react-bootstrap/Table';
 import './Profile.css';
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
@@ -33,191 +28,167 @@ const Profile = () => {
   return (
     <div>
     <Navbar/>
-    <Container className="main-body">
-      <Row className="gutters-sm">
-        <Col md={4} className="mb-3">
-          <Card className="text-center square-card">
-            <Card.Body>
+    <div className="container main-body">
+      <div className="row gutters-sm">
+        <div className="col-md-4 mb-3">
+          <div className="card text-center square-card">
+            <div className="card-body">
               <div className="profile-image-container">
-                <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="User" className="profile-image rounded-circle" />
+                <img
+                  src="https://bootdey.com/img/Content/avatar/avatar7.png"
+                  alt="User"
+                  className="profile-image rounded-circle img-fluid"
+                />
               </div>
-              <Card.Title className="mt-3">Sakshi Kanunje</Card.Title>
-              <Card.Subtitle className="mb-2 text-muted">Full Stack Developer</Card.Subtitle>
-              <Card.Text>
-                Bay Area, San Francisco, CA
-              </Card.Text>
-              <Button variant="primary">Follow</Button>
-              <Button variant="outline-primary">Message</Button>
-            </Card.Body>
-          </Card>
-        </Col>
-        <Col md={8}>
-          <Card className="mb-3">
-            <Card.Body>
-              <Form>
-                <Row>
-                  <Col sm={3}>
-                    <Form.Label>Full Name</Form.Label>
-                  </Col>
-                  <Col sm={9}>
+              <h5 className="mt-3">Sakshi Kanunje</h5>
+              <h6 className="mb-2 text-muted">Full Stack Developer</h6>
+              <p>Bay Area, San Francisco, CA</p>
+              <button className="btn btn-primary">Follow</button>
+              <button className="btn btn-outline-primary">Message</button>
+            </div>
+          </div>
+        </div>
+        <div className="col-md-8">
+          <div className="card mb-3">
+            <div className="card-body">
+              <form>
+                <div className="row mb-3">
+                  <label className="col-sm-3 col-form-label">Full Name</label>
+                  <div className="col-sm-9">
                     {editMode ? (
-                      <Form.Control
+                      <input
                         type="text"
                         name="fullName"
+                        className="form-control"
                         value={formValues.fullName}
                         onChange={handleInputChange}
                       />
                     ) : (
-                      <Form.Text className="text-secondary">{formValues.fullName}</Form.Text>
+                      <p className="text-secondary">{formValues.fullName}</p>
                     )}
-                  </Col>
-                </Row>
-                <hr />
-                <Row>
-                  <Col sm={3}>
-                    <Form.Label>Email</Form.Label>
-                  </Col>
-                  <Col sm={9}>
+                  </div>
+                </div>
+                <div className="row mb-3">
+                  <label className="col-sm-3 col-form-label">Email</label>
+                  <div className="col-sm-9">
                     {editMode ? (
-                      <Form.Control
+                      <input
                         type="email"
                         name="email"
+                        className="form-control"
                         value={formValues.email}
                         onChange={handleInputChange}
                       />
                     ) : (
-                      <Form.Text className="text-secondary">{formValues.email}</Form.Text>
+                      <p className="text-secondary">{formValues.email}</p>
                     )}
-                  </Col>
-                </Row>
-                <hr />
-                <Row>
-                  <Col sm={3}>
-                    <Form.Label>Phone</Form.Label>
-                  </Col>
-                  <Col sm={9}>
+                  </div>
+                </div>
+                <div className="row mb-3">
+                  <label className="col-sm-3 col-form-label">Phone</label>
+                  <div className="col-sm-9">
                     {editMode ? (
-                      <Form.Control
+                      <input
                         type="tel"
                         name="phone"
+                        className="form-control"
                         value={formValues.phone}
                         onChange={handleInputChange}
                       />
                     ) : (
-                      <Form.Text className="text-secondary">{formValues.phone}</Form.Text>
+                      <p className="text-secondary">{formValues.phone}</p>
                     )}
-                  </Col>
-                </Row>
-                <hr />
-                <Row>
-                  <Col sm={3}>
-                    <Form.Label>Address</Form.Label>
-                  </Col>
-                  <Col sm={9}>
+                  </div>
+                </div>
+                <div className="row mb-3">
+                  <label className="col-sm-3 col-form-label">Address</label>
+                  <div className="col-sm-9">
                     {editMode ? (
-                      <Form.Control
+                      <input
                         type="text"
                         name="address"
+                        className="form-control"
                         value={formValues.address}
                         onChange={handleInputChange}
                       />
                     ) : (
-                      <Form.Text className="text-secondary">{formValues.address}</Form.Text>
+                      <p className="text-secondary">{formValues.address}</p>
                     )}
-                  </Col>
-                </Row>
-                <hr />
-                <Row>
-                  <Col sm={3}>
-                    <Form.Label>Blood Group</Form.Label>
-                  </Col>
-                  <Col sm={9}>
+                  </div>
+                </div>
+                <div className="row mb-3">
+                  <label className="col-sm-3 col-form-label">Blood Group</label>
+                  <div className="col-sm-9">
                     {editMode ? (
-                      <Form.Control
+                      <input
                         type="text"
                         name="bloodGroup"
+                        className="form-control"
                         value={formValues.bloodGroup}
                         onChange={handleInputChange}
                       />
                     ) : (
-                      <Form.Text className="text-secondary">{formValues.bloodGroup}</Form.Text>
+                      <p className="text-secondary">{formValues.bloodGroup}</p>
                     )}
-                  </Col>
-                </Row>
-                <hr />
-                <Row>
-                  <Col sm={12}>
-                    <Button onClick={toggleEditMode} className="btn btn-info">
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-sm-12">
+                    <button type="button" onClick={toggleEditMode} className="btn btn-info">
                       {editMode ? 'Save Changes' : 'Edit'}
-                    </Button>
-                  </Col>
-                </Row>
-              </Form>
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row>
-      <Table responsive>
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Name</th>
-          <th>Age</th>
-          <th>Grade</th>
-          <th>Section</th>
-          <th>Email</th>
-          <th>Phone</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>1</td>
-          <td>John Doe</td>
-          <td>16</td>
-          <td>10th</td>
-          <td>A</td>
-          <td>john.doe@example.com</td>
-          <td>(123) 456-7890</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>Jane Smith</td>
-          <td>15</td>
-          <td>9th</td>
-          <td>B</td>
-          <td>jane.smith@example.com</td>
-          <td>(987) 654-3210</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>Mike Johnson</td>
-          <td>17</td>
-          <td>11th</td>
-          <td>C</td>
-          <td>mike.johnson@example.com</td>
-          <td>(555) 123-4567</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>Mike Johnson</td>
-          <td>17</td>
-          <td>11th</td>
-          <td>C</td>
-          <td>mike.johnson@example.com</td>
-          <td>(555) 123-4567</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>Mike Johnson</td>
-          <td>17</td>
-          <td>11th</td>
-          <td>C</td>
-          <td>mike.johnson@example.com</td>
-          <td>(555) 123-4567</td>
-        </tr>
-      </tbody>
-    </Table>
-    </Container>
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="table-responsive">
+        <table className="table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Age</th>
+              <th>Grade</th>
+              <th>Section</th>
+              <th>Email</th>
+              <th>Phone</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>John Doe</td>
+              <td>16</td>
+              <td>10th</td>
+              <td>A</td>
+              <td>john.doe@example.com</td>
+              <td>(123) 456-7890</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Jane Smith</td>
+              <td>15</td>
+              <td>9th</td>
+              <td>B</td>
+              <td>jane.smith@example.com</td>
+              <td>(987) 654-3210</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Mike Johnson</td>
+              <td>17</td>
+              <td>11th</td>
+              <td>C</td>
+              <td>mike.johnson@example.com</td>
+              <td>(555) 123-4567</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
     <Footer/>
     </div>
   );
