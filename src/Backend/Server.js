@@ -130,7 +130,7 @@ app.post("/userLogin", (req, res) => {
 app.post("/generateQR", async (req, res) => {
   const { username, email } = req.body;
   const uuid = uuidv4();
-  const dataToEncode = `http://localhost:3001/scan/${uuid}`;
+  const dataToEncode = `${uuid}`;
 
   try {
     const qrCode = await new Promise((resolve, reject) => {

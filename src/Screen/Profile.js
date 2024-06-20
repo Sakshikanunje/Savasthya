@@ -31,8 +31,8 @@ const Profile = () => {
     <div className="container main-body">
       <div className="row gutters-sm">
         <div className="col-md-4 mb-3">
-          <div className="card text-center square-card">
-            <div className="card-body">
+          <div className="cardz text-center square-cardz">
+            <div className="cardz-body">
               <div className="profile-image-container">
                 <img
                   src="https://bootdey.com/img/Content/avatar/avatar7.png"
@@ -49,8 +49,8 @@ const Profile = () => {
           </div>
         </div>
         <div className="col-md-8">
-          <div className="card mb-3">
-            <div className="card-body">
+          <div className="cardz mb-3">
+            <div className="cardz-body">
               <form>
                 <div className="row mb-3">
                   <label className="col-sm-3 col-form-label">Full Name</label>
