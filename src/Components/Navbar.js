@@ -45,6 +45,11 @@ function Navbar() {
           </Link>
         </li>
         <li>
+            <Link to="/scan" onClick={openNav} href="#services">
+             scan
+            </Link>
+          </li>
+        <li>
           <Link to="/profile/:uuid" className="navbar-links">
             Profile
           </Link>
@@ -72,6 +77,11 @@ function Navbar() {
           <li>
             <Link onClick={openNav} to="/">
               Home
+            </Link>
+          </li>
+          <li>
+            <Link to="/scan" onClick={openNav} href="#services">
+             scan
             </Link>
           </li>
           <li>

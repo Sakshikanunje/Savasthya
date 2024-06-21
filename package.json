@@ -13,6 +13,7 @@
     "cors": "^2.8.5",
     "express-session": "^1.18.0",
     "fs": "^0.0.1-security",
+    "html5-qrcode": "^2.3.8",
     "pdfkit": "^0.15.0",
     "qrcode": "^1.5.3",
     "react": "^18.3.1",

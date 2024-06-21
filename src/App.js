@@ -21,6 +21,7 @@ function App() {
         <Route exact path="/" element={<Home/>}/>
        
         <Route exact path="/model" element={<Model/>}/>
+        <Route exact path="/scan" element={<Scan/>}/>
         
         <Route exact path="/userLogin" element={<UserLogin/>}/>
         <Route exact path='/loginOpt' element={<LoginOpt />}/>
