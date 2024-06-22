@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Axios from "axios";
 import "./UserLogin.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -11,6 +11,9 @@ export default function Login() {
   const [registerStatus, setRegisterStatus] = useState("");
   const [showLoginForm, setShowLoginForm] = useState(true);
   const [showSuccessPopup, setShowSuccessPopup] = useState(false); // State for showing success popup
+
+
+  const navigate = useNavigate();
 
 
   const UserRegister = (e) => {
@@ -24,6 +27,15 @@ export default function Login() {
         setRegisterStatus(response.data.message);
       } else {
         setRegisterStatus("ACCOUNT CREATED SUCCESSFULLY");
+        
+        Axios.post("http://localhost:3001/generateQR", {
+          username: username,
+          email: email,
+        }).then((qrResponse) => {
+          console.log(qrResponse.data.pdfPath);
+          window.open(qrResponse.data.pdfPath, "_blank");
+          
+        });
       }
     });
   };
@@ -39,13 +51,8 @@ export default function Login() {
       } else {
         setLoginStatus(response.data[0].email);
         setShowSuccessPopup(true);
-        Axios.post("http://localhost:3001/generateQR", {
-          username: username,
-          email: response.data[0].email,
-        }).then((qrResponse) => {
-          console.log(qrResponse.data.pdfPath);
-          window.open(qrResponse.data.pdfPath, "_blank");
-        });
+        const userUUID = response.data[0].uuid;
+        navigate(`/profile/${userUUID}`);
       }
     });
   };
@@ -140,10 +147,12 @@ export default function Login() {
               placeholder="Enter your Password"
               required
             />
+            
             <input
               className="button"
               type="submit"
               onClick={UserRegister}
+              
               value="Create an account"
             />
             <h1

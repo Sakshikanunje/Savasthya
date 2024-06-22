@@ -1,19 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import './Profile.css';
+import './DoctorProfile.css';
 import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
 import axios from 'axios';
-import profile from '../Database/profile.jpeg';
 import { useParams } from 'react-router-dom';
 
-const Profile = () => {
+
+const DoctorProfile = () => {
   const [profileData, setProfileData] = useState(null);
   const { uuid } = useParams(); // Extract UUID from URL
+ 
 
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/api/user/${uuid}`, {
+        
+        const response = await axios.get(`http://localhost:3001/api/doctor/${uuid}`, {
           withCredentials: true // Ensure credentials are sent with the request
         });
         const profile = response.data.profile;
@@ -40,7 +42,7 @@ const Profile = () => {
               <div className="cardx pro-square-card">
                 <div className="card-body card-bodyx">
                   <div className="d-flex flex-column align-items-center text-center">
-                    <img src={profile} alt="Admin" className="rounded-circle" width="150" />
+                    <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" className="rounded-circle" width="150" />
                     <div className="mt-3">
                       <h4>{profileData.firstName} {profileData.lastName}</h4>
                       <p className="text-secondary mb-1">Mobile Number: {profileData.mobileNumber}</p>
@@ -62,6 +64,7 @@ const Profile = () => {
                     </div>
                   </div>
                   <hr />
+                  
                   <div className="row">
                     <div className="col-sm-3">
                       <h6 className="mb-0">Date of Birth</h6>
@@ -91,13 +94,13 @@ const Profile = () => {
                   <hr />
                   <div className="row">
                     <div className="col-sm-3">
-                      <h6 className="mb-0">Emergency Mobile Number</h6>
+                      <h6 className="mb-0">Type of</h6>
                     </div>
                     <div className="col-sm-9 text-secondary">
                       <h6 className="mb-0">{profileData.emergencyMobileNumber}</h6>
                     </div>
                   </div>
-
+                    
                   <hr />
                   <div className="row">
                     <div className="col-sm-3">
@@ -106,48 +109,19 @@ const Profile = () => {
                     <div className="col-sm-9 text-secondary">
                       <h6 className="mb-0">{profileData.bloodGroup}</h6>
                     </div>
+                   
                   </div>
                 </div>
               </div>
             </div>
           </div>
           <br />
-          <div className="table-responsive">
-            <table className="table">
-              <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">First</th>
-                  <th scope="col">Last</th>
-                  <th scope="col">Handle</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                  <td>@fat</td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td colspan="2">Larry the Bird</td>
-                  <td>@twitter</td>
-                </tr>
-              </tbody>
-            </table>
           </div>
         </div>
-      </div>
+      
       <Footer />
     </>
   );
 };
 
-export default Profile;
+export default DoctorProfile;

@@ -1,0 +1,88 @@
+/* Styling for the QR code scanner page */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  .containerk {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+  }
+  
+  h1 {
+    margin-top: 5%;
+    color: #333;
+    font-size: 2.5rem;
+    text-align: center;
+  }
+  
+  #reader {
+    width: 100%;
+    height: 100%;
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+  }
+  
+  .success-message {
+    margin-top: 20px;
+    color: #28a745;
+    font-size: 1.2rem;
+    text-align: center;
+  }
+  
+  .error-message {
+    margin-top: 20px;
+    color: #dc3545;
+    font-size: 1.2rem;
+    text-align: center;
+  }
+  
+  button {
+    display: inline-block;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: #fff;
+    background-color:  #047672;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #02a2ab;
+  }
+  
+  /* Responsive styling */
+  @media (max-width: 600px) {
+    h1 {
+      font-size: 2rem;
+    }
+  
+    #reader {
+      max-width: 100%;
+      padding: 10px;
+    }
+  
+    button {
+      width: 100%;
+      padding: 15px;
+      font-size: 1.2rem;
+    }
+  }
+  

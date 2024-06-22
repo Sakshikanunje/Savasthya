@@ -10,7 +10,7 @@
 /* Text section */
 .text-section {
     width: 60%;
-    padding: 0 32px;
+    margin-left: 100px;
 }
 
 .text-headline {

@@ -7,6 +7,7 @@ import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import apply from "../Database/apply.jpeg";
 import { Link } from "react-router-dom";
 
 function LoginOpt() {
@@ -42,8 +43,8 @@ function LoginOpt() {
             </Card>
           </Col>
           <Col md={6} className="d-flex justify-content-center align-items-center">
-            <img src="" alt="Description" className="img-fluid" />
-            <Button type="submit" className="buttonb">Apply for card</Button>
+            <img src={apply} alt="Description" style={{"height":"500px" , "width":"500px"}} />
+            
           </Col>
         </Row>
       </Container>

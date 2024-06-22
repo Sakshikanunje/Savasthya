@@ -10,6 +10,7 @@ import UserProfile from './Screen/UserProfile';
 import Doctorpro from './Screen/Doctorpro';
 import Profile from './Screen/Profile';
 import Scan from "./Screen/Scan";
+import DoctorProfile from './Screen/DoctorProfile';
 import {BrowserRouter as Router , Routes , Route} from "react-router-dom";
 
 function App() {
@@ -18,17 +19,32 @@ function App() {
    <Router>
     <div>
       <Routes>
-        <Route exact path="/" element={<Home/>}/>
+        {/* <Route exact path="/" element={<Home/>}/>
        
         <Route exact path="/model" element={<Model/>}/>
         <Route exact path="/scan" element={<Scan/>}/>
+        <Route exact path="/scan/:uuid" element={<Scan/>}/>
         
         <Route exact path="/userLogin" element={<UserLogin/>}/>
         <Route exact path='/loginOpt' element={<LoginOpt />}/>
         <Route exact path='/profile/:uuid' element={<Profile />}/>
         <Route exact path='/doctLogin' element={<DoctLogin/>} />
         <Route exact path='/userProfile' element={<UserProfile/>}/>
-        <Route exact path='/doctorPro' element={<Doctorpro/>}/>
+        <Route exact path='/doctorPro' element={<Doctorpro/>}/> */}
+
+
+        <Route exact path="/" element={<Home />} />
+            <Route exact path="/model" element={<Model />} />
+            <Route exact path="/scan/*" element={<Scan />} />
+            <Route exact path="/userLogin" element={<UserLogin />} />
+            <Route exact path='/loginOpt' element={<LoginOpt />} />
+            <Route exact path='/profile/:uuid' element={<Profile />} />
+            <Route exact path='/doctLogin' element={<DoctLogin />} />
+            <Route exact path='/userProfile' element={<UserProfile />} />
+            <Route exact path='/doctorPro' element={<Doctorpro />} />
+            <Route exact path='/doctorProfile/:uuid' element={<DoctorProfile />} />
+
+           
       </Routes>
     </div>
    </Router>

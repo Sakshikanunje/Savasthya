@@ -1,17 +1,19 @@
 const express = require("express");
 const session = require('express-session');
 const mysql = require("mysql");
-const { v4: uuidv4 } = require('uuid'); // Import uuidv4
+const { v4: uuidv4 } = require('uuid');
 const cors = require("cors");
 const qr = require("qrcode");
 const PDFDocument = require("pdfkit");
 const fs = require("fs");
 
-
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:3000', // Allow requests from localhost:3000
+  credentials: true  // Enable CORS credentials
+}));
 
 app.use(session({
   secret: 'supersecretkey',
@@ -20,7 +22,6 @@ app.use(session({
   cookie: { secure: false } // Set to true in production with HTTPS
 }));
 
-// *******SQL CONNECTION**********
 const con = mysql.createConnection({
   user: "root",
   host: "localhost",
@@ -36,8 +37,6 @@ con.connect((err) => {
   console.log("Connected to database");
 });
 
-
-// ********** DOCTORS LOGIN REGISTER***********
 app.post("/doctRegister", (req, res) => {
   const { email, username, password } = req.body;
   const uuid = uuidv4();
@@ -69,6 +68,7 @@ app.post("/doctLogin", (req, res) => {
       }
       if (result.length > 0) {
         req.session.doctorId = result[0].id;
+        req.session.doctorUUID = result[0].uuid;
         res.send(result);
       } else {
         res.status(400).json({ message: "Wrong username or password" });
@@ -77,27 +77,28 @@ app.post("/doctLogin", (req, res) => {
   );
 });
 
-
-
-// *********** USERS LOGIN REGISTER***********
-
-app.post("/userRegister", (req, res) => {
+app.post("/userRegister", async (req, res) => {
   const { email, username, password } = req.body;
   const uuid = uuidv4();
   con.query(
     "INSERT INTO users (email, username, password , uuid) VALUES (?, ?, ?,?)",
-    [email, username, password,uuid],
-    (err, result) => {
+    [email, username, password, uuid],
+    async (err, result) => {
       if (err) {
         console.error("Error registering user:", err);
         res.status(500).json({ error: "Failed to register user" });
         return;
       }
-      res.send({ message: "Account created successfully" });
+      try {
+        const qrPath = await generateQR(uuid, username);
+        res.send({ message: "Account created successfully", pdfPath: qrPath });
+      } catch (qrErr) {
+        console.error("Error generating QR code:", qrErr);
+        res.status(500).json({ error: "Failed to generate QR code" });
+      }
     }
   );
 });
-
 
 app.post("/userLogin", (req, res) => {
   const { username, password } = req.body;
@@ -121,69 +122,36 @@ app.post("/userLogin", (req, res) => {
   );
 });
 
-
-
-
-
-
-
-app.post("/generateQR", async (req, res) => {
-  const { username, email } = req.body;
-  const uuid = uuidv4();
+const generateQR = async (uuid, username) => {
   const dataToEncode = `http://localhost:3001/scan/${uuid}`;
 
-  try {
-    const qrCode = await new Promise((resolve, reject) => {
-      qr.toDataURL(dataToEncode, (err, url) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(url);
-        }
-      });
-    });
-    console.log("QR code generated successfully.");
-
-   
-
-    const doc = new PDFDocument();
-    const outputPath = `./qr-codes/${username}_card.pdf`;
-
-    // Write the PDF to a file
-    doc.pipe(fs.createWriteStream(outputPath));
-
-    // QR Code
-    doc.image(qrCode, 50, 100, { width: 250 });
-
-    
-
-    doc.end();
-
-    doc.on("finish", () => {
-      console.log("PDF generated successfully.");
-      res
-        .status(200)
-        .json({ message: "Card generated as PDF.", pdfPath: outputPath });
-    });
-
-    con.query(
-      "UPDATE users SET uuid = ? WHERE username = ?",
-      [uuid, username],
-      (err, result) => {
-        if (err) {
-          console.error("Error updating user UUID:", err);
-          return;
-        }
-        console.log("User UUID updated successfully.");
+  const qrCode = await new Promise((resolve, reject) => {
+    qr.toDataURL(dataToEncode, (err, url) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(url);
       }
-    );
-  } catch (error) {
-    console.error("Error processing request:", error);
-    res.status(500).json({ error: "Failed to generate QR code or PDF" });
-  }
-});
+    });
+  });
 
-// ********** SCAN QR CODE ***********
+  const doc = new PDFDocument();
+  const outputPath = `./qr-codes/${username}_card.pdf`;
+
+  doc.pipe(fs.createWriteStream(outputPath));
+  doc.image(qrCode, 50, 100, { width: 250 });
+  doc.end();
+
+  return new Promise((resolve, reject) => {
+    doc.on("finish", () => {
+      resolve(outputPath);
+    });
+    doc.on("error", (err) => {
+      reject(err);
+    });
+  });
+};
+
 app.get("/scan/:uuid", (req, res) => {
   const { uuid } = req.params;
 
@@ -193,34 +161,82 @@ app.get("/scan/:uuid", (req, res) => {
       res.status(500).json({ error: "Failed to fetch user" });
       return;
     }
+
+    if (result.length === 0) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    const userProfile = {
+      firstName: result[0].firstName,
+      middleName: result[0].middleName,
+      lastName: result[0].lastName,
+      age: result[0].age,
+      gender: result[0].gender,
+      mobileNumber: result[0].mobileNumber,
+      emergencyMobileNumber: result[0].emergencyMobileNumber,
+      dob: result[0].dob,
+      address: result[0].address,
+      bloodGroup: result[0].bloodGroup,
+    };
+
+    res.json({ profile: userProfile });
+  });
+});
+
+app.get('/api/user/:uuid', (req, res) => {
+  const { uuid } = req.params;
+  const sql = 'SELECT * FROM users WHERE uuid = ?';
+  con.query(sql, [uuid], (err, result) => {
+    if (err) {
+      console.error('Error fetching user by UUID:', err);
+      res.status(500).json({ error: 'Failed to fetch user' });
+      return;
+    }
     if (result.length > 0) {
-      if (req.session.userId && req.session.userUUID === uuid) {
-        res.redirect(`/profile/${uuid}`);
-      } else {
-        req.session.scanUUID = uuid;
-        res.redirect('/loginOpt');
-      }
+      const userProfile = {
+        firstName: result[0].firstName,
+        middleName: result[0].middleName,
+        lastName: result[0].lastName,
+        age: result[0].age,
+        gender: result[0].gender,
+        mobileNumber: result[0].mobileNumber,
+        emergencyMobileNumber: result[0].emergencyMobileNumber,
+        dob: result[0].dob,
+        address: result[0].address,
+        bloodGroup: result[0].bloodGroup,
+      };
+      res.json({ profile: userProfile });
     } else {
-      res.status(404).json({ error: "User not found" });
+      res.status(404).json({ error: 'User not found' });
     }
   });
 });
 
-
-// ********** USER PROFILE ***********
-app.get("/profile/:uuid", (req, res) => {
+app.get('/api/doctor/:uuid', (req, res) => {
   const { uuid } = req.params;
-
-  con.query("SELECT * FROM users WHERE uuid = ?", [uuid], (err, result) => {
+  const sql = 'SELECT * FROM doctor WHERE uuid = ?';
+  con.query(sql, [uuid], (err, result) => {
     if (err) {
-      console.error("Error fetching user profile:", err);
-      res.status(500).json({ error: "Failed to fetch user profile" });
+      console.error('Error fetching user by UUID:', err);
+      res.status(500).json({ error: 'Failed to fetch user' });
       return;
     }
-    if (result.length > 0 && req.session.userId && req.session.userUUID === uuid) {
-      res.json(result[0].profile);
+    if (result.length > 0) {
+      const userProfile = {
+        firstName: result[0].firstName,
+        middleName: result[0].middleName,
+        lastName: result[0].lastName,
+        age: result[0].age,
+        gender: result[0].gender,
+        mobileNumber: result[0].mobileNumber,
+        emergencyMobileNumber: result[0].emergencyMobileNumber,
+        dob: result[0].dob,
+        address: result[0].address,
+        bloodGroup: result[0].bloodGroup,
+      };
+      res.json({ profile: doctorProfile });
     } else {
-      res.status(403).json({ error: "Unauthorized" });
+      res.status(404).json({ error: 'User not found' });
     }
   });
 });
@@ -229,86 +245,3 @@ const PORT = 3001;
 app.listen(PORT, () => {
   console.log(`Running backend server on port ${PORT}`);
 });
-// const express = require('express');
-// const mysql = require('mysql');
-// const bodyParser = require('body-parser');
-// const cors = require('cors');
-
-// const app = express();
-// const port = 5000;
-
-// app.use(cors());
-// app.use(bodyParser.json());
-
-// const db = mysql.createConnection({
-//   host: 'localhost',
-//   user: 'root',
-//   password: '',
-//   database: 'Sanjivan'
-// });
-
-// db.connect((err) => {
-//   if (err) {
-//     throw err;
-//   }
-//   console.log('MySQL connected...');
-// });
-
-// // Endpoint to handle update operation
-// app.put('/api/profile/:email', (req, res) => {
-//   const email = req.params.email; // Extract email from request params
-//   const {
-//     firstName,
-//     middleName,
-//     lastName,
-//     age,
-//     gender,
-//     mobileNumber,
-//     emergencyMobileNumber,
-//     bloodGroup,
-//     dob,
-//     address
-//   } = req.body;
-
-//   const updateQuery = `
-//     UPDATE users
-//     SET 
-//       firstName = ?,
-//       middleName = ?,
-//       lastName = ?,
-//       age = ?,
-//       gender = ?,
-//       mobileNumber = ?,
-//       emergencyMobileNumber = ?,
-//       bloodGroup = ?,
-//       dob = ?,
-//       address = ?
-//     WHERE
-//       email = ?
-//   `;
-
-//   db.query(updateQuery, [
-//     firstName,
-//     middleName,
-//     lastName,
-//     age,
-//     gender,
-//     mobileNumber,
-//     emergencyMobileNumber,
-//     bloodGroup,
-//     dob,
-//     address,
-//     email
-//   ], (err, result) => {
-//     if (err) {
-//       console.error('Error updating profile:', err);
-//       return res.status(500).send({ message: 'Failed to update profile.' });
-//     }
-//     res.send({ message: 'Profile updated successfully!' });
-//     console.log(res.result);
-//   });
-// });
-
-// app.listen(port, () => {
-//   console.log(`Server running on port ${port}`);
-// });

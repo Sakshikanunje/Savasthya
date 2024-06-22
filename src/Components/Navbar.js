@@ -33,7 +33,7 @@ function Navbar() {
     <div className="navbar-section nava">
       <h1 className="navbar-title">
         <Link to="/">
-      <img src={logo} style={{"height":"200px" , "width":"200px" , "marginTop":"5px"}}/>
+      <img src={logo} style={{"height":"200px" , "width":"200px" }}/>
         </Link>
       </h1>
 
@@ -44,16 +44,12 @@ function Navbar() {
             Home
           </Link>
         </li>
-        <li>
-            <Link to="/scan" onClick={openNav} href="#services">
+        {/* <li>
+            <Link to="/scan" onClick={openNav} href="#services" className="navbar-links">
              scan
             </Link>
           </li>
-        <li>
-          <Link to="/profile/:uuid" className="navbar-links">
-            Profile
-          </Link>
-        </li>
+         */}
         <li>
           <Link to="/model" className="navbar-links">
             HealthComrade AI
@@ -79,16 +75,12 @@ function Navbar() {
               Home
             </Link>
           </li>
-          <li>
+          {/* <li>
             <Link to="/scan" onClick={openNav} href="#services">
              scan
             </Link>
           </li>
-          <li>
-            <Link to="/profile/:uuid" onClick={openNav} href="#services">
-             Profile
-            </Link>
-          </li>
+           */}
           <li>
             <Link to="/model"onClick={openNav} href="#about">
            HealthComrade AI

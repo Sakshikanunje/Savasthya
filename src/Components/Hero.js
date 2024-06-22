@@ -6,7 +6,7 @@ import { useNavigate  } from "react-router-dom";
 import "./Hero.css";
 import picture from "../Database/main.png";
 import { Link } from "react-router-dom";
-import doc from "../Database/doctor-picture.png";
+import doc from "../Database/doc.png";
 
 
 function Hero() {
@@ -51,22 +51,7 @@ function Hero() {
           </p>
          <Link to="/model" ><button className="text-appointment-btn" type="button" >HealthComrade AI</button></Link>
           
-          {/* <div className="text-stats">
-            <div className="text-stats-container">
-              <p>145k+</p>
-              <p>Receive Patients</p>
-            </div>
-
-            <div className="text-stats-container">
-              <p>50+</p>
-              <p>Expert Doctors</p>
-            </div>
-
-            <div className="text-stats-container">
-              <p>10+</p>
-              <p>Years of Experience</p>
-            </div>
-          </div> */}
+        
         </div>
 
         <div className="hero-image-section">
