@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
-import Axios from "axios";
+import axios from "axios";
 import "./UserProfile.css";
+import { Link } from "react-router-dom";
 
 function UserProfile() {
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
   const [formData, setFormData] = useState({
     firstName: "",
     middleName: "",
@@ -28,20 +30,20 @@ function UserProfile() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    Axios.post("http://localhost:3001/userProf", formData)
-      .then((response) => {
-        if (response.data.message) {
-          setUserProfStatus(response.data.message);
-        } else {
-          setUserProfStatus("ACCOUNT CREATED SUCCESSFULLY");
-        }
-      })
-      .catch((error) => {
-        setUserProfStatus("Error creating account: " + error.message);
-      });
+    try {
+      const response = await axios.put(
+        `http://localhost:3001/api/profile/${formData.email}`,
+        formData
+      );
+      console.log(response.data);
+      setShowSuccessPopup(true);
+      // Handle success, reset form, show success message, etc.
+    } catch (error) {
+      console.error("Error updating profile:", error);
+      // Handle error, show error message, etc.
+    }
   };
 
   return (
@@ -215,6 +217,13 @@ function UserProfile() {
         </Form>
         {userProfStatus && <p>{userProfStatus}</p>}
       </div>
+       {/* Success popup */}
+       {showSuccessPopup && (
+        <div className="success-popup">
+          <p> Successful!</p>
+          <Link to="/userLogin"><button onClick={() => setShowSuccessPopup(false)}>Close</button></Link>
+        </div>
+      )}
       </Container>
   );
 }

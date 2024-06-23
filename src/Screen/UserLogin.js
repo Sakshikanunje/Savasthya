@@ -14,8 +14,7 @@ export default function Login() {
 
 
   const navigate = useNavigate();
-
-
+ 
   const UserRegister = (e) => {
     e.preventDefault();
     Axios.post("http://localhost:3001/userRegister", {
@@ -25,20 +24,53 @@ export default function Login() {
     }).then((response) => {
       if (response.data.message) {
         setRegisterStatus(response.data.message);
+
+
+
       } else {
         setRegisterStatus("ACCOUNT CREATED SUCCESSFULLY");
-        
+
+
+
+        setShowSuccessPopup(true);
+        const userUUID = response.data[0].uuid;
+        navigate(`/userProfForm/${userUUID}`);
+
         Axios.post("http://localhost:3001/generateQR", {
           username: username,
           email: email,
         }).then((qrResponse) => {
           console.log(qrResponse.data.pdfPath);
           window.open(qrResponse.data.pdfPath, "_blank");
-          
         });
       }
     });
   };
+
+  // const UserRegister = (e) => {
+  //   e.preventDefault();
+  //   Axios.post("http://localhost:3001/userRegister", {
+  //     email: email,
+  //     username: username,
+  //     password: password,
+  //   }).then((response) => {
+  //     if (response.data.message) {
+  //       setRegisterStatus(response.data.message);
+  //     } else {
+  //       setRegisterStatus("ACCOUNT CREATED SUCCESSFULLY");
+        
+  //       Axios.post("http://localhost:3001/generateQR", {
+  //         username: username,
+  //         email: email,
+  //       }).then((qrResponse) => {
+  //         console.log(qrResponse.data.pdfPath);
+  //         window.open(qrResponse.data.pdfPath, "_blank");
+          
+  //       });
+       
+  //     }
+  //   });
+  // };
 
   const UserLogin = (e) => {
     e.preventDefault();
@@ -164,6 +196,11 @@ export default function Login() {
             >
               {registerStatus}
             </h1>
+            <Link to="/userProfile">
+            <button className="btn " style={{"backgroundColor":"#08a29e" , "color":"white"}} >
+              Submit
+            </button>
+            </Link>
             <button className="toggle-button" onClick={toggleForm}>
               Login
             </button>

@@ -88,6 +88,8 @@ app.post("/userRegister", async (req, res) => {
         console.error("Error registering user:", err);
         res.status(500).json({ error: "Failed to register user" });
         return;
+      }else{
+        res.send({ uuid: uuid, message: "User registered successfully!" });
       }
       try {
         const qrPath = await generateQR(uuid, username);
@@ -99,6 +101,29 @@ app.post("/userRegister", async (req, res) => {
     }
   );
 });
+
+// app.post("/userRegister", async (req, res) => {
+//   const { email, username, password } = req.body;
+//   const uuid = uuidv4();
+//   con.query(
+//     "INSERT INTO users (email, username, password , uuid) VALUES (?, ?, ?,?)",
+//     [email, username, password, uuid],
+//     async (err, result) => {
+//       if (err) {
+//         console.error("Error registering user:", err);
+//         res.status(500).json({ error: "Failed to register user" });
+//         return;
+//       }
+//       try {
+//         const qrPath = await generateQR(uuid, username);
+//         res.send({ message: "Account created successfully", pdfPath: qrPath });
+//       } catch (qrErr) {
+//         console.error("Error generating QR code:", qrErr);
+//         res.status(500).json({ error: "Failed to generate QR code" });
+//       }
+//     }
+//   );
+// });
 
 app.post("/userLogin", (req, res) => {
   const { username, password } = req.body;
@@ -211,7 +236,59 @@ app.get('/api/user/:uuid', (req, res) => {
     }
   });
 });
+// Endpoint to handle update operation
+app.put('/api/profile/:email', (req, res) => {
+  const email = req.params.email; // Extract email from request params
+  const {
+    firstName,
+    middleName,
+    lastName,
+    age,
+    gender,
+    mobileNumber,
+    emergencyMobileNumber,
+    bloodGroup,
+    dob,
+    address
+  } = req.body;
 
+  const updateQuery = `
+    UPDATE users
+    SET 
+      firstName = ?,
+      middleName = ?,
+      lastName = ?,
+      age = ?,
+      gender = ?,
+      mobileNumber = ?,
+      emergencyMobileNumber = ?,
+      bloodGroup = ?,
+      dob = ?,
+      address = ?
+    WHERE
+      email = ?
+  `;
+
+  con.query(updateQuery, [
+    firstName,
+    middleName,
+    lastName,
+    age,
+    gender,
+    mobileNumber,
+    emergencyMobileNumber,
+    bloodGroup,
+    dob,
+    address,
+    email
+  ], (err, result) => {
+    if (err) {
+      console.error('Error updating profile:', err);
+      return res.status(500).send({ message: 'Failed to update profile.' });
+    }
+    res.send({ message: 'Profile updated successfully!' });
+  });
+});
 app.get('/api/doctor/:uuid', (req, res) => {
   const { uuid } = req.params;
   const sql = 'SELECT * FROM doctor WHERE uuid = ?';
